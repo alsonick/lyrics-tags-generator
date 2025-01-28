@@ -1,5 +1,5 @@
 {
-  "name": "lyrics-tags",
+  "name": "lyrics-tags-generator",
   "version": "0.1.0",
   "private": true,
   "scripts": {

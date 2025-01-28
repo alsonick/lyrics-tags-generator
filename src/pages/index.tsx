@@ -6,6 +6,8 @@ import { Step } from "../components/Step";
 import { useRef, useState } from "react";
 import { FiCopy } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
+
+// Next.js
 import Head from "next/head";
 import Link from "next/link";
 
@@ -82,7 +84,8 @@ export default function Home() {
                 required={true}
               />
               <p className="text-xs mt-1">
-                Please remove any commas , if there are any.
+                Please remove any commas , if there are any.{" "}
+                <span className="text-yellow-600 font-semibold">Required</span>
               </p>
             </section>
             <section className="flex flex-col w-full">
@@ -96,7 +99,8 @@ export default function Home() {
                 required={true}
               />
               <p className="text-xs mt-1">
-                Any special characters are allowed except commas ,.
+                Any special characters are allowed except commas ,.{" "}
+                <span className="text-yellow-600 font-semibold">Required</span>
               </p>
             </section>
           </div>
@@ -126,7 +130,8 @@ export default function Home() {
                 ref={inputRef}
               />
               <p className="text-xs mt-1">
-                Is the song popular on TikTok? Type "true" if so.
+                Is the song popular on TikTok? Type "true" if so.{" "}
+                <span className="text-yellow-600 font-semibold">Required</span>
               </p>
             </section>
           </div>
@@ -145,8 +150,8 @@ export default function Home() {
         ) : (
           <div className="flex flex-col">
             <div className="border p-4 mt-4 rounded-xl">
-              <div className="flex flex-wrap gap-5 my-4">
-                {tags.length && (
+              <div className="flex flex-wrap gap-4 my-4">
+                {tags.length ? (
                   <>
                     {tags.map((tag) => (
                       <div className="flex items-center border p-2 px-4 rounded-xl hover:cursor-pointer w-fit duration-300 hover:shadow-lg">
@@ -155,6 +160,10 @@ export default function Home() {
                       </div>
                     ))}
                   </>
+                ) : (
+                  <h3 className="text-2xl font-light">
+                    Click the "Generate" button to generate your tags.
+                  </h3>
                 )}
               </div>
             </div>
