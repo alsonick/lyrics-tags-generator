@@ -237,6 +237,12 @@ export default function Home() {
                 title="Copy generated tags"
                 style={{ marginLeft: "auto" }}
                 onClick={() => {
+                  if (!tags.length) {
+                    toast.error(
+                      "Please generate the tags before you copy to clipboard."
+                    );
+                    return;
+                  }
                   copy(tags.join(", "));
                   toast.success("Tags copied to the clipboard.");
                 }}
