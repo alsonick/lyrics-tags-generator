@@ -95,6 +95,8 @@ export default function Home() {
         <title>{seoTitle} | YouTube</title>
         <meta name="description" content={seoDescription} />
         <meta property="og:title" content={seoTitle} />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="twitter:title" content={seoTitle} />
         <meta name="twitter:description" content={seoDescription} />
         <meta property="og:image" content="/tags.png" />
