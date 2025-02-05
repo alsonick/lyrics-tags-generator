@@ -55,10 +55,74 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   tags += ",lyrics";
 
+  // Extras - Generate different title formats
+  let artistArray = artist.split(" ");
+  let titleArray = title.split(" ");
+  let computedArtist = "";
+  let computedTitle = "";
+
+  const trim = (str: string) => str.trim();
+
+  // Formats the title to have the first letter of each word capitalized
+  for (let i = 0; i < titleArray.length; i++) {
+    computedTitle += `${titleArray[i][0].toUpperCase()}${titleArray[
+      i
+    ].substring(1)} `;
+  }
+
+  // Formats the artist to have the first letter of each word capitalized
+  for (let i = 0; i < artistArray.length; i++) {
+    computedArtist += `${artistArray[i][0].toUpperCase()}${artistArray[
+      i
+    ].substring(1)} `;
+  }
+
+  let format: string = "";
+
+  // Check if there are any features
+  if (features) {
+    const feats: string[] = features
+      .split(",")
+      .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`);
+
+    format += `${trim(computedArtist)} - ${trim(computedTitle)} ft. ${
+      feats[0]
+    } (Lyrics),${trim(computedArtist)} & ${feats[0]} - ${trim(
+      computedTitle
+    )} (Lyrics),${trim(computedArtist)}, ${feats[0]} - ${trim(
+      computedTitle
+    )} (Lyrics)`;
+
+    // If there are two features
+    if (feats.length === 2) {
+      format += `${trim(computedArtist)} - ${trim(
+        computedTitle
+      )} (Lyrics) ft. ${feats[0]}, ${feats[1]}`;
+    }
+
+    // If there are three features
+    if (feats.length === 3) {
+      format += `${trim(computedArtist)} - ${trim(
+        computedTitle
+      )} (Lyrics) ft. ${feats[0]}, ${feats[1]}, ${feats[2]}`;
+    }
+  } else {
+    format += `${trim(computedArtist)} - ${trim(computedTitle)} (Lyrics)`;
+  }
+
   // Send the response
   res.status(200).json({
     success: true,
     tags: tags.toLowerCase(),
+    title: trim(computedTitle),
+    artist: trim(computedArtist),
+    t: `${trim(computedArtist)} - ${trim(computedTitle)}`,
+    features: features
+      .split(",")
+      .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`),
+    extras: {
+      titles: format,
+    },
     url: `/api/gen?title=${encodeURIComponent(
       title
     )}&artist=${encodeURIComponent(artist)}&features=${encodeURIComponent(

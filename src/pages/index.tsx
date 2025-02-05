@@ -255,6 +255,9 @@ export default function Home() {
                 Please delete the least suitable tags for your case.
               </p>
             )}
+            {/* <div className="flex flex-col mt-4">
+              <h3 className="text-2xl font-bold">Extras</h3>
+            </div> */}
           </div>
         )}
         <footer className="bottom-0 left-0 right-0  mt-28 text-center text-sm pb-4">
