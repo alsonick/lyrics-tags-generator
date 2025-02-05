@@ -94,10 +94,10 @@ export default function Home() {
       <Head>
         <title>{seoTitle} | YouTube</title>
         <meta name="description" content={seoDescription} />
-        <meta property="og:title" content={seoTitle} />
+        <meta property="og:title" content={`${seoTitle} | YouTube`} />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:title" content={`${seoTitle} | YouTube`} />
         <meta name="twitter:description" content={seoDescription} />
         <meta property="og:image" content="/tags.png" />
         <meta name="twitter:image" content="/tags.png" />
