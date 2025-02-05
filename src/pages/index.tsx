@@ -102,6 +102,9 @@ export default function Home() {
         <meta property="og:url" content="tags.notnick.io" />
         <meta property="og:type" content="website" />
         <meta name="twitter:image" content="/tags.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:image:width" content="1400" />
+        <meta property="og:image:height" content="800" />
       </Head>
       <main className="flex flex-col h-full px-2 py-20 sm:w-[55rem] w-[95%]">
         <header className="flex flex-col items-center">
