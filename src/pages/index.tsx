@@ -9,6 +9,8 @@ import { FiCopy } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
 import copy from "copy-to-clipboard";
 
+// TODO: Clean up the code
+
 // Next.js
 import Head from "next/head";
 import Link from "next/link";
@@ -18,6 +20,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [features, setFeatures] = useState("");
   const [artist, setArtist] = useState("");
+  const [apiUrl, setApiUrl] = useState("");
   const [tiktok, setTiktok] = useState("");
   const [title, setTitle] = useState("");
 
@@ -63,9 +66,16 @@ export default function Home() {
       // Split the tags by commas and trim them
       const separated = data.tags.split(",").map((tag) => tag.trim());
 
+      // Success
       toast.success("Tags generated successfully.");
       setTags(separated);
+      setApiUrl(data.url);
       setLoading(false);
+
+      setTitle("");
+      setArtist("");
+      setFeatures("");
+      setTiktok("");
     }
 
     // Checks if the response is not "ok"
@@ -85,6 +95,13 @@ export default function Home() {
         <title>{seoTitle} | YouTube</title>
         <meta name="description" content={seoDescription} />
         <meta property="og:title" content={seoTitle} />
+        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:description" content={seoDescription} />
+        <meta property="og:image" content="/tags.png" />
+        <meta name="twitter:image" content="/tags.png" />
+        <meta property="og:url" content="tags.notnick.io" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:image" content="/tags.png" />
       </Head>
       <main className="flex flex-col h-full px-2 py-20 sm:w-[55rem] w-[95%]">
         <header className="flex flex-col items-center">
@@ -149,20 +166,19 @@ export default function Home() {
               />
               <p className="text-xs mt-1">
                 Is the song popular on TikTok? Type "true" if so.{" "}
-                <span className="text-yellow-600 font-semibold">Required</span>
               </p>
             </section>
           </div>
           <div className="w-full justify-between items-center flex mt-2 border-b pb-4">
             <div className="ml-auto flex">
-              <Button>
+              <Button title="Generate tags">
                 Generate <FiLoader className="ml-2" />
               </Button>
             </div>
           </div>
         </form>
         {loading ? (
-          <div className="mt-10">
+          <div className="mt-28 flex justify-center items-center">
             <LoadingIndicator />
           </div>
         ) : (
@@ -186,13 +202,24 @@ export default function Home() {
                   </>
                 ) : (
                   <h3 className="text-2xl font-light">
-                    Click the "Generate" button to generate your tags.
+                    Click the "Generate" button to generate your tags. 🤖
                   </h3>
                 )}
               </div>
             </div>
+            {tags.length > 0 && (
+              <Link
+                title="Click to view json representation data."
+                className="text-sm text-center mt-5 underline"
+                target="_blank"
+                href={apiUrl}
+              >
+                Click to view json representation data.
+              </Link>
+            )}
             <div className="flex w-full mt-4 items-center">
               <p
+                className="text-sm"
                 style={{
                   color: tags.join(",  ").length > 500 ? "red" : "black",
                   fontWeight: tags.join(",  ").length > 500 ? "500" : "normal",
@@ -202,6 +229,7 @@ export default function Home() {
               </p>
 
               <Button
+                title="Copy generated tags"
                 style={{ marginLeft: "auto" }}
                 onClick={() => {
                   copy(tags.join(", "));
@@ -211,9 +239,14 @@ export default function Home() {
                 Copy generated tags <FiCopy className="ml-2" />
               </Button>
             </div>
+            {tags.join(",  ").length > 500 && (
+              <p className="mt-4 text-sm text-red-500">
+                Please delete the least suitable tags for your case.
+              </p>
+            )}
           </div>
         )}
-        <footer className="bottom-0 mt-28 text-center text-sm pb-4">
+        <footer className="bottom-0 left-0 right-0  mt-28 text-center text-sm pb-4">
           <p className="text-gray-600">
             Built with ❤️ by{" "}
             <Link

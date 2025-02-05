@@ -13,12 +13,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const title: string = req.query.title as string;
 
   // Check if all the required fields are provided
-  if (!artist || !title || !tiktok || !features) {
-    res.status(400).json({
+  if (!artist || !title || !tiktok) {
+    return res.status(400).json({
       success: false,
       error: "Please provide all the required fields.",
     });
-    return;
   }
 
   // Check if there are any commas in the title or artist
@@ -60,6 +59,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.status(200).json({
     success: true,
     tags: tags.toLowerCase(),
+    url: `/api/gen?title=${encodeURIComponent(
+      title
+    )}&artist=${encodeURIComponent(artist)}&features=${encodeURIComponent(
+      features
+    )}&tiktok=${
+      tiktok === "" ? "false" : tiktok !== "true" ? "false" : "true"
+    }`,
     length: tags
       .split(",")
       .map((tag) => tag.trim())
