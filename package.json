@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "copy-to-clipboard": "^3.3.3",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.4.0"
+    "react-icons": "^5.4.0",
+    "react-toastify": "^11.0.3"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,4 +1,5 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
+import { ToastContainer, toast } from "react-toastify";
 import { Button } from "../components/Button";
 import { Response } from "@/types/response";
 import { FiLoader } from "react-icons/fi";
@@ -6,6 +7,7 @@ import { Step } from "../components/Step";
 import { useRef, useState } from "react";
 import { FiCopy } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
+import copy from "copy-to-clipboard";
 
 // Next.js
 import Head from "next/head";
@@ -19,16 +21,24 @@ export default function Home() {
   const [tiktok, setTiktok] = useState("");
   const [title, setTitle] = useState("");
 
-  const inputRef = useRef(null);
-
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Check if there are any commas in the title or artist
+    if (/,/.test(title) || /,/.test(artist)) {
+      toast.error("Please remove any commas , from the title or artist.");
+      return;
+    }
+
+    // Starts the loading
     setLoading(true);
 
+    // Fetch the tags from the API
     const response = await fetch(
       `
-      /api/gen?title=${title}&artist=${artist}&features=${features}&tiktok=${tiktok}
+      /api/gen?title=${title}&artist=${artist}&features=${features}&tiktok=${
+        tiktok === "" ? "false" : tiktok !== "true" ? "false" : "true"
+      }
     `,
       {
         method: "GET",
@@ -38,18 +48,30 @@ export default function Home() {
       }
     );
 
+    // Check if the response is successful
     if (response.status === 200) {
       const data: Response = await response.json();
 
+      // Check if the response isn't successful
       if (!data.success) {
+        toast.error(data.error);
         setLoading(false);
         alert(data.error);
         return;
       }
 
-      const separated = data.tags.split(",");
+      // Split the tags by commas and trim them
+      const separated = data.tags.split(",").map((tag) => tag.trim());
 
+      toast.success("Tags generated successfully.");
       setTags(separated);
+      setLoading(false);
+    }
+
+    // Checks if the response is not "ok"
+    if (!response.ok) {
+      console.log(response);
+      toast.error("An error occurred. Please try again.");
       setLoading(false);
     }
   };
@@ -78,7 +100,6 @@ export default function Home() {
               <input
                 className="flex border items-center p-2 rounded-lg outline-none focus:ring focus:ring-black duration-300 px-4"
                 placeholder="Don't Let Me Down"
-                ref={inputRef}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required={true}
@@ -95,7 +116,6 @@ export default function Home() {
                 placeholder="The Chainsmokers"
                 value={artist}
                 onChange={(e) => setArtist(e.target.value)}
-                ref={inputRef}
                 required={true}
               />
               <p className="text-xs mt-1">
@@ -112,7 +132,6 @@ export default function Home() {
                 placeholder="Daya"
                 value={features}
                 onChange={(e) => setFeatures(e.target.value)}
-                ref={inputRef}
                 required={false}
               />
               <p className="text-xs mt-1">
@@ -126,8 +145,7 @@ export default function Home() {
                 onChange={(e) => setTiktok(e.target.value)}
                 value={tiktok}
                 placeholder="false"
-                required={true}
-                ref={inputRef}
+                required={false}
               />
               <p className="text-xs mt-1">
                 Is the song popular on TikTok? Type "true" if so.{" "}
@@ -154,7 +172,13 @@ export default function Home() {
                 {tags.length ? (
                   <>
                     {tags.map((tag) => (
-                      <div className="flex items-center border p-2 px-4 rounded-xl hover:cursor-pointer w-fit duration-300 hover:shadow-lg">
+                      <div
+                        className="flex items-center border p-2 px-4 rounded-xl hover:cursor-pointer w-fit duration-300 hover:shadow-lg"
+                        onClick={() => {
+                          const filtered = tags.filter((t) => t !== tag);
+                          setTags(filtered);
+                        }}
+                      >
                         <p className="font-semibold">{tag}</p>
                         <FiX className="text-lg ml-1" />
                       </div>
@@ -167,8 +191,23 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="flex w-full">
-              <Button style={{ marginLeft: "auto", marginTop: "1rem" }}>
+            <div className="flex w-full mt-4 items-center">
+              <p
+                style={{
+                  color: tags.join(",  ").length > 500 ? "red" : "black",
+                  fontWeight: tags.join(",  ").length > 500 ? "500" : "normal",
+                }}
+              >
+                {tags.join(",  ").length}/500
+              </p>
+
+              <Button
+                style={{ marginLeft: "auto" }}
+                onClick={() => {
+                  copy(tags.join(", "));
+                  toast.success("Tags copied to the clipboard.");
+                }}
+              >
                 Copy generated tags <FiCopy className="ml-2" />
               </Button>
             </div>
@@ -191,6 +230,7 @@ export default function Home() {
           </p>
         </footer>
       </main>
+      <ToastContainer />
     </div>
   );
 }
