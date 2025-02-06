@@ -83,7 +83,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   let format: string = "";
 
   // Check if there are any features
-  if (features) {
+  if (features !== undefined) {
     const feats: string[] = features
       .split(",")
       .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`);
@@ -120,9 +120,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     title: trim(computedTitle),
     artist: trim(computedArtist),
     t: `${trim(computedArtist)} - ${trim(computedTitle)}`,
-    features: features
-      .split(",")
-      .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`),
+    features:
+      features !== undefined
+        ? features
+            .split(",")
+            .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`)
+        : "",
     extras: {
       titles: format,
     },
