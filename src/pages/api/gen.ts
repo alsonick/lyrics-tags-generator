@@ -125,7 +125,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         ? features
             .split(",")
             .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`)
-        : "",
+        : [],
     extras: {
       titles: format,
     },
