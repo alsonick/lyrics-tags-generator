@@ -16,6 +16,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
+  const [extras, setExtras] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [features, setFeatures] = useState("");
