@@ -38,7 +38,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // Probably shouldn't generate tags for features if tiktok is true because there would be too many tags
   // Part to generate tags for features
-  if (features && (tiktok === "false" || tiktok === "" || tiktok !== "true")) {
+  if (
+    features !== undefined &&
+    (tiktok === "false" || tiktok === "" || tiktok !== "true")
+  ) {
     let feats = features.split(",").map((feat) => feat.trim());
 
     const firstFeat = feats[0];

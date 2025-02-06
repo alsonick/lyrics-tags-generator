@@ -16,12 +16,11 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
-  const [extras, setExtras] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [features, setFeatures] = useState("");
+  const [data, setData] = useState<Response>();
   const [artist, setArtist] = useState("");
-  const [apiUrl, setApiUrl] = useState("");
   const [tiktok, setTiktok] = useState("");
   const [title, setTitle] = useState("");
 
@@ -40,9 +39,9 @@ export default function Home() {
     // Fetch the tags from the API
     const response = await fetch(
       `
-      /api/gen?title=${title}&artist=${artist}&features=${features}&tiktok=${
-        tiktok === "" ? "false" : tiktok !== "true" ? "false" : "true"
-      }
+      /api/gen?title=${title}&artist=${artist}${
+        features ? `&features=${features}` : ""
+      }&tiktok=${tiktok === "" ? "false" : tiktok !== "true" ? "false" : "true"}
     `,
       {
         method: "GET",
@@ -69,8 +68,8 @@ export default function Home() {
 
       // Success
       toast.success("Tags generated successfully.");
+      setData(data);
       setTags(separated);
-      setApiUrl(data.url);
       setLoading(false);
 
       setTitle("");
@@ -190,7 +189,13 @@ export default function Home() {
         ) : (
           <div className="flex flex-col">
             <div className="border p-4 mt-4 rounded-xl">
-              <div className="flex flex-wrap gap-4 my-4">
+              {tags.length > 0 && (
+                <h2 className="text-2xl text-center font-light">
+                  Tags generated for <i>{data?.title}</i> by{" "}
+                  <b>{data?.artist}</b> 🤖
+                </h2>
+              )}
+              <div className="flex flex-wrap gap-4 my-4 mt-6">
                 {tags.length ? (
                   <>
                     {tags.map((tag) => (
@@ -218,7 +223,7 @@ export default function Home() {
                 title="Click to view json representation data."
                 className="text-sm text-center mt-5 underline"
                 target="_blank"
-                href={apiUrl}
+                href={data?.url ?? ""}
               >
                 Click to view json representation data.
               </Link>
