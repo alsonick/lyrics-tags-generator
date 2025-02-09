@@ -2,6 +2,7 @@ import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "../components/Button";
 import { Response } from "@/types/response";
+import { Input } from "@/components/Input";
 import { FiLoader } from "react-icons/fi";
 import { Step } from "../components/Step";
 import { useRef, useState } from "react";
@@ -108,7 +109,12 @@ export default function Home() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="600" />
       </Head>
-      <main className="flex flex-col h-full px-2 py-20 sm:w-[55rem] w-[95%]">
+      <div className="flex lg:hidden">
+        <p className="text-2xl text-center font-light">
+          Whoop. This is awkward! This site only supports desktop size screens.
+        </p>
+      </div>
+      <main className="lg:flex flex-col h-full px-2 py-20 sm:w-[55rem] w-[95%] hidden">
         <header className="flex flex-col items-center">
           <h1 className="text-6xl font-bold tracking-tighter">{seoTitle} ✍️</h1>
           <p className="text-gray-800 mt-4 text-xl font-medium">
@@ -118,30 +124,28 @@ export default function Home() {
         <form onSubmit={submit} className="flex flex-col">
           <div className="flex w-full gap-6 items-center">
             <section className="flex flex-col w-full">
-              <Step step={1} text="Title" />
-              <input
-                className="flex border items-center p-2 rounded-lg outline-none focus:ring focus:ring-black duration-300 px-4"
-                placeholder="Don't Let Me Down"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+              <Step step={1} text="Artist" />
+              <Input
+                onChange={(e) => setArtist(e.target.value)}
+                placeholder="The Chainsmokers"
                 required={true}
+                value={artist}
               />
               <p className="text-xs mt-1">
-                Please remove any commas , if there are any.{" "}
+                Any special characters are allowed except commas ,.{" "}
                 <span className="text-yellow-600 font-semibold">Required</span>
               </p>
             </section>
             <section className="flex flex-col w-full">
-              <Step step={2} text="Artist" />
-              <input
-                className="flex border items-center p-2 rounded-lg outline-none focus:ring focus:ring-black duration-300 px-4"
-                placeholder="The Chainsmokers"
-                value={artist}
-                onChange={(e) => setArtist(e.target.value)}
+              <Step step={2} text="Title" />
+              <Input
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Don't Let Me Down"
                 required={true}
+                value={title}
               />
               <p className="text-xs mt-1">
-                Any special characters are allowed except commas ,.{" "}
+                Please remove any commas , if there are any.{" "}
                 <span className="text-yellow-600 font-semibold">Required</span>
               </p>
             </section>
@@ -149,11 +153,10 @@ export default function Home() {
           <div className="flex w-full gap-6 items-center">
             <section className="flex flex-col w-full">
               <Step step={3} text="Features" />
-              <input
-                className="flex border items-center p-2 rounded-lg outline-none focus:ring focus:ring-black duration-300 px-4"
+              <Input
+                onChange={(e) => setFeatures(e.target.value)}
                 placeholder="Daya"
                 value={features}
-                onChange={(e) => setFeatures(e.target.value)}
                 required={false}
               />
               <p className="text-xs mt-1">
@@ -162,12 +165,11 @@ export default function Home() {
             </section>
             <section className="flex flex-col w-full">
               <Step step={4} text="TikTok" />
-              <input
-                className="flex border items-center p-2 rounded-lg outline-none focus:ring focus:ring-black duration-300 px-4"
+              <Input
                 onChange={(e) => setTiktok(e.target.value)}
-                value={tiktok}
                 placeholder="false"
                 required={false}
+                value={tiktok}
               />
               <p className="text-xs mt-1">
                 Is the song popular on TikTok? Type "true" if so.{" "}
@@ -200,7 +202,8 @@ export default function Home() {
                   <>
                     {tags.map((tag) => (
                       <div
-                        className="flex items-center border p-2 px-4 rounded-xl hover:cursor-pointer w-fit duration-300 hover:shadow-lg"
+                        className="flex items-center border p-2 px-4 rounded-xl
+                        hover:cursor-pointer w-fit duration-300 hover:shadow-lg"
                         onClick={() => {
                           const filtered = tags.filter((t) => t !== tag);
                           setTags(filtered);
@@ -261,9 +264,41 @@ export default function Home() {
                 Please delete the least suitable tags for your case.
               </p>
             )}
-            {/* <div className="flex flex-col mt-4">
-              <h3 className="text-2xl font-bold">Extras</h3>
-            </div> */}
+            {tags.length > 0 && (
+              <div className="mt-8 flex flex-col border-t pt-4">
+                <h3 className="text-2xl font-bold">Hashtags:</h3>
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex">
+                    <p className="text-xl mr-4">
+                      #{data?.artist.replace(" ", "")}
+                    </p>
+                    <p className="text-xl mr-4">
+                      #{data?.title.replace("'", "").replaceAll(" ", "")}
+                    </p>
+                    <p className="text-xl">#Lyrics</p>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      const textToCopy = `#${data?.artist.replace(
+                        " ",
+                        ""
+                      )} #${data?.title
+                        .replace("'", "")
+                        .replaceAll(" ", "")} #Lyrics`;
+                      copy(textToCopy);
+                      toast.success("Hashtags copied to the clipboard.");
+                    }}
+                  >
+                    Copy <FiCopy className="ml-2" />
+                  </Button>
+                </div>
+              </div>
+            )}
+            {/* {tags.length > 0 && (
+              <div className="flex flex-col mt-8 border-t pt-4">
+                <h3 className="text-2xl font-bold">Extras</h3>
+              </div>
+            )} */}
           </div>
         )}
         <footer className="bottom-0 left-0 right-0  mt-28 text-center text-sm pb-4">
