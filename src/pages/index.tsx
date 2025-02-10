@@ -5,12 +5,10 @@ import { Response } from "@/types/response";
 import { Input } from "@/components/Input";
 import { FiLoader } from "react-icons/fi";
 import { Step } from "../components/Step";
-import { useRef, useState } from "react";
 import { FiCopy } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
 import copy from "copy-to-clipboard";
-
-// TODO: Clean up the code
+import { useState } from "react";
 
 // Next.js
 import Head from "next/head";
