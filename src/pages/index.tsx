@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Button } from "../components/Button";
 import { Response } from "@/types/response";
 import { Input } from "@/components/Input";
+import { FaGithub } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
 import { Step } from "../components/Step";
 import { FiCopy } from "react-icons/fi";
@@ -112,7 +113,31 @@ export default function Home() {
           Whoop. This is awkward! This site only supports desktop size screens.
         </p>
       </div>
-      <main className="lg:flex flex-col h-full px-2 py-20 sm:w-[55rem] w-[95%] hidden">
+      <nav className="lg:flex items-center justify-between top-0 absolute h-20 w-full px-20 bg-white hidden">
+        <Link
+          href="https://github.com/alsonick/lyrics-tags-generator"
+          target="_blank"
+        >
+          <FaGithub className="text-3xl" />
+        </Link>
+        <div className="flex">
+          <Link
+            className="font-semibold hover:underline mr-10"
+            href="https://github.com/alsonick/lyrics-tags-generator/issues/new?template=Blank+issue"
+            target="_blank"
+          >
+            Submit Suggestion
+          </Link>
+          <Link
+            className="font-semibold hover:underline"
+            href="https://discord.com/oauth2/authorize?client_id=1338567480834265193&permissions=2147534848&integration_type=0&scope=bot"
+            target="_blank"
+          >
+            Invite Discord Bot
+          </Link>
+        </div>
+      </nav>
+      <main className="lg:flex flex-col py-32 h-full px-2 sm:w-[55rem] w-[95%] hidden">
         <header className="flex flex-col items-center">
           <h1 className="text-6xl font-bold tracking-tighter">{seoTitle} ✍️</h1>
           <p className="text-gray-800 mt-4 text-xl font-medium">
