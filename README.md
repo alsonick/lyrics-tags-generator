@@ -71,6 +71,8 @@ Using the [Discord](https://discord.com/) bot version is probably faster. You al
 
 [Click here to invite the discord bot to your server.](https://discord.com/oauth2/authorize?client_id=1338567480834265193&permissions=2147534848&integration_type=0&scope=bot)
 
+Example:
+
 <img width="485" alt="Screenshot 2025-02-26 at 22 27 41" src="https://github.com/user-attachments/assets/a3d1f54f-44ed-45a6-9478-c4c21eb13b42" />
 
 ## Stack
