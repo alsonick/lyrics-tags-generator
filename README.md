@@ -23,7 +23,7 @@ ${artist} ${title},${artist} ${title} lyrics,${title} lyrics,${title} ${artist} 
 ${artist} ${title},${artist} ${title} lyrics,${title} lyrics,${title} ${artist} lyrics,lyrics ${title},lyrics ${artist} ${title},${artist} lyrics ${title},${title} lyrics ${artist},${title} lyric video,lyrics ${title} ${artist},${artist} lyrics,lyrics ${artist},${title},${artist}, ${title} ${artist},${title} tiktok,${artist} tiktok
 ```
 
-> If `TikTok` is provided then feature tags will not be generated.
+> If `TikTok` is provided then feature tags will _not_ be generated.
 
 ### (including features and excluding tiktok):
 
