@@ -37,7 +37,7 @@ ${artist} ${title},${artist} ${title} lyrics,${title} lyrics,${title} ${artist} 
 ${artist} ${title},${artist} ${title} lyrics,${title} lyrics,${title} ${artist} lyrics,lyrics ${title},lyrics ${artist} ${title},${artist} lyrics ${title},${title} lyrics ${artist},${title} lyric video,lyrics ${title} ${artist},${artist} lyrics,lyrics ${artist},${title},${artist}, ${title} ${artist},${firstFeat} ${title} lyrics,lyrics ${firstFeat} ${title},${firstFeat} lyrics,${artist} ${secondFeat} ${title} lyrics,${secondFeat} ${title} lyrics,lyrics ${secondFeat} ${title},${secondFeat} lyrics,lyrics ${secondFeat}
 ```
 
-> If there are more than 2 features, then it will only use the first two features.
+> If there are more than 2 features, then it _will_ only use the first two features.
 
 If you think a different format works better, then please [submit an issue](https://github.com/alsonick/lyrics-tags-generator/issues/new?template=Blank+issue) or [email me](mailto:hi@notnick.io).
 
@@ -68,6 +68,8 @@ If you think a different format works better, then please [submit an issue](http
 ## Discord Bot
 
 Using the [Discord](https://discord.com/) bot version is probably faster. You also need to be familiar with [slash commands](https://support-apps.discord.com/hc/en-us/articles/26501837786775-Slash-Commands-FAQ).
+
+[Click here to invite the discord bot to your server.](https://discord.com/oauth2/authorize?client_id=1338567480834265193&permissions=2147534848&integration_type=0&scope=bot)
 
 <img width="485" alt="Screenshot 2025-02-26 at 22 27 41" src="https://github.com/user-attachments/assets/a3d1f54f-44ed-45a6-9478-c4c21eb13b42" />
 
