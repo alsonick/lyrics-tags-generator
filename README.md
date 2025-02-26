@@ -39,7 +39,7 @@ ${artist} ${title},${artist} ${title} lyrics,${title} lyrics,${title} ${artist} 
 
 > If there are more than 2 features, then it will only use the first two features.
 
-If you think a different format works better, then please [submit an issue](https://github.com/alsonick/lyrics-tags-generator/issues/new?template=Blank+issue).
+If you think a different format works better, then please [submit an issue](https://github.com/alsonick/lyrics-tags-generator/issues/new?template=Blank+issue) or [email me](mailto:hi@notnick.io).
 
 ## Data
 
@@ -47,19 +47,19 @@ If you think a different format works better, then please [submit an issue](http
 
 ```json
 {
-"success": true,
-"tags": "the chainsmokers don't let me down,the chainsmokers don't let me down lyrics,don't let me down lyrics,don't let me down the chainsmokers lyrics,lyrics don't let me down,lyrics the chainsmokers don't let me down,the chainsmokers lyrics don't let me down,don't let me down lyrics the chainsmokers,don't let me down lyric video,lyrics don't let me down the chainsmokers,the chainsmokers lyrics,lyrics the chainsmokers,don't let me down,the chainsmokers, don't let me down the chainsmokers,daya don't let me down lyrics,lyrics daya don't let me down,daya lyrics,lyrics",
-"title": "Don't Let Me Down",
-"artist": "The Chainsmokers",
-"t": "The Chainsmokers - Don't Let Me Down",
-"features": [
-"Daya"
-],
-"extras": {
-"titles": "The Chainsmokers - Don't Let Me Down ft. Daya (Lyrics),The Chainsmokers & Daya - Don't Let Me Down (Lyrics),The Chainsmokers, Daya - Don't Let Me Down (Lyrics)"
-},
-"url": "/api/gen?title=Don't%20Let%20Me%20Down&artist=The%20Chainsmokers&features=Daya&tiktok=false",
-"length": 599
+    "success": true,
+    "tags": "the chainsmokers don't let me down,the chainsmokers don't let me down lyrics,don't let me down lyrics,don't let me down the chainsmokers lyrics,lyrics don't let me down,lyrics the chainsmokers don't let me down,the chainsmokers lyrics don't let me down,don't let me down lyrics the chainsmokers,don't let me down lyric video,lyrics don't let me down the chainsmokers,the chainsmokers lyrics,lyrics the chainsmokers,don't let me down,the chainsmokers, don't let me down the chainsmokers,daya don't let me down lyrics,lyrics daya don't let me down,daya lyrics,lyrics",
+    "title": "Don't Let Me Down",
+    "artist": "The Chainsmokers",
+    "t": "The Chainsmokers - Don't Let Me Down",
+    "features": [
+        "Daya"
+    ],
+    "extras": {
+        "titles": "The Chainsmokers - Don't Let Me Down ft. Daya (Lyrics),The Chainsmokers & Daya - Don't Let Me Down (Lyrics),The Chainsmokers, Daya - Don't Let Me Down (Lyrics)"
+    },
+    "url": "/api/gen?title=Don't%20Let%20Me%20Down&artist=The%20Chainsmokers&features=Daya&tiktok=false",
+    "length": 599
 }
 ```
 
