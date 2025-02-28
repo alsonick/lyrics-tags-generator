@@ -65,15 +65,21 @@ If you think a different format works better, then please [submit an issue](http
 
 > Sometimes it will generate too many tags (500 is the limit), so you'll have to delete the tags you think are least effective.
 
+You can use the `curl` command too if you want.
+
+<img width="682" alt="Screenshot 2025-02-28 at 12 57 27" src="https://github.com/user-attachments/assets/8c5404ba-a329-4335-8869-8582e317368c" />
+
 ## Discord Bot
 
-Using the [Discord](https://discord.com/) bot version is probably faster. You also need to be familiar with [slash commands](https://support-apps.discord.com/hc/en-us/articles/26501837786775-Slash-Commands-FAQ).
+Using the [Discord](https://discord.com/) bot version is probably faster. You must also be familiar with [slash commands](https://support-apps.discord.com/hc/en-us/articles/26501837786775-Slash-Commands-FAQ).
 
 [Click here to invite the discord bot to your server.](https://discord.com/oauth2/authorize?client_id=1338567480834265193&permissions=2147534848&integration_type=0&scope=bot)
 
 Example:
 
 <img width="485" alt="Screenshot 2025-02-26 at 22 27 41" src="https://github.com/user-attachments/assets/a3d1f54f-44ed-45a6-9478-c4c21eb13b42" />
+
+> When you use the slash command, sometimes the bot won't respond. I'm aware of this issue, if this happens then just rerun the slash command, it should work on the second or third attempt.
 
 ## Stack
 
