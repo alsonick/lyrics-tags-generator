@@ -65,7 +65,7 @@ If you think a different format works better, then please [submit an issue](http
 
 > Sometimes it will generate too many tags (500 is the limit), so you'll have to delete the tags you think are least effective.
 
-You can use the `curl` command too if you want.
+You can also use the `curl` command too if you want.
 
 <img width="682" alt="Screenshot 2025-02-28 at 12 57 27" src="https://github.com/user-attachments/assets/8c5404ba-a329-4335-8869-8582e317368c" />
 
