@@ -7,6 +7,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // Get the query parameters
+  const bassboosted: string = req.query.bassboosted as string;
   const features: string = req.query.features as string;
   const tiktok: string = req.query.tiktok as string;
   const artist: string = req.query.artist as string;
@@ -30,6 +31,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // Typical tags format you'd use for lyric videos
   let tags = `${artist} ${title},${artist} ${title} lyrics,${title} lyrics,${title} ${artist} lyrics,lyrics ${title},lyrics ${artist} ${title},${artist} lyrics ${title},${title} lyrics ${artist},${title} lyric video,lyrics ${title} ${artist},${artist} lyrics,lyrics ${artist},${title},${artist}, ${title} ${artist}`;
+
+  if (bassboosted === "true") {
+    tags = `${artist} ${title} bass boosted,${title} ${artist} bass boosted,${title} bass boosted,${title} bass,${artist} ${title} bass boost,${title} ${artist} bass boost,bass boosted,bass boost,${artist} ${title},${title} ${artist},${title},${artist}`;
+  }
 
   // Part to generate tags for tiktok option
   if (tiktok === "true") {
