@@ -6,9 +6,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
+  // TODO: implement the nightcore/sped up tags
   // Get the query parameters
-  const bassboosted: string = req.query.bassboosted as string;
   const features: string = req.query.features as string;
+  const bassboosted: string = req.query.bass as string;
   const tiktok: string = req.query.tiktok as string;
   const artist: string = req.query.artist as string;
   const title: string = req.query.title as string;

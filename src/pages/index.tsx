@@ -42,7 +42,11 @@ export default function Home() {
       `
       /api/gen?title=${title}&artist=${artist}${
         features ? `&features=${features}` : ""
-      }&tiktok=${tiktok === "" ? "false" : tiktok !== "true" ? "false" : "true"}
+      }&tiktok=${
+        tiktok === "" ? "false" : tiktok !== "true" ? "false" : "true"
+      }&bass=${
+        bassBoosted === "" ? "false" : bassBoosted !== "true" ? "false" : "true"
+      }
     `,
       {
         method: "GET",
