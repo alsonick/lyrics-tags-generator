@@ -49,6 +49,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   ) {
     let feats = features.split(",").map((feat) => feat.trim());
 
+    // Only generate tags for the first feature
+    if (bassboosted === "true") {
+      // Only generate a few tags for bass boosted features
+      tags += `${feats[0]} ${title} bass boosted,${title} ${feats[0]} bass boosted, ${feats[0]} ${title} bass,${title} ${feats[0]} bass, ${feats[0]} bass`;
+      return;
+    }
+
     const firstFeat = feats[0];
 
     tags += `,${firstFeat} ${title} lyrics,lyrics ${firstFeat} ${title},${firstFeat} lyrics`;

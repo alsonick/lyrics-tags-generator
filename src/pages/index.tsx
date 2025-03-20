@@ -16,6 +16,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
+  const [bassBoosted, setBassBoosted] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [features, setFeatures] = useState("");
@@ -199,6 +200,17 @@ export default function Home() {
               </p>
             </section>
           </div>
+          <h3 className="mt-12">These options are not for lyric videos.</h3>
+          <section className="flex flex-col w-full">
+            <Step step={5} text="Bass Boosted" />
+            <Input
+              onChange={(e) => setBassBoosted(e.target.value)}
+              placeholder="false"
+              required={false}
+              value={bassBoosted}
+            />
+            <p className="text-xs mt-1">Is this a bass boosted video? </p>
+          </section>
           <div className="w-full justify-between items-center flex mt-2 border-b pb-4">
             <div className="ml-auto flex">
               <Button title="Generate tags">
