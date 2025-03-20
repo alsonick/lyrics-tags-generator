@@ -48,7 +48,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     (tiktok === "false" ||
       tiktok === "" ||
       tiktok !== "true" ||
-      bassboosted == "true")
+      bassboosted === "true")
   ) {
     let feats = features.split(",").map((feat) => feat.trim());
 
