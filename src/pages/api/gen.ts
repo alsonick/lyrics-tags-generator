@@ -45,7 +45,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // Part to generate tags for features
   if (
     features !== undefined &&
-    (tiktok === "false" || tiktok === "" || tiktok !== "true")
+    (tiktok === "false" ||
+      tiktok === "" ||
+      tiktok !== "true" ||
+      bassboosted == "true")
   ) {
     let feats = features.split(",").map((feat) => feat.trim());
 
