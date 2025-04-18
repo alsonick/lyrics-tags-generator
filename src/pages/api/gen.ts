@@ -6,11 +6,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  // TODO: implement the nightcore/sped up tags
   // Get the query parameters
   const features: string = req.query.features as string;
   const bassboosted: string = req.query.bass as string;
   const tiktok: string = req.query.tiktok as string;
+  const format: string = req.query.format as string;
   const artist: string = req.query.artist as string;
   const title: string = req.query.title as string;
 
@@ -33,12 +33,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // Typical tags format you'd use for lyric videos
   let tags = `${artist} ${title},${artist} ${title} lyrics,${title} lyrics,${title} ${artist} lyrics,lyrics ${title},lyrics ${artist} ${title},${artist} lyrics ${title},${title} lyrics ${artist},${title} lyric video,lyrics ${title} ${artist},${artist} lyrics,lyrics ${artist},${title},${artist}, ${title} ${artist}`;
 
-  if (bassboosted === "true") {
+  if (format === "bassboosted") {
+    // Bass boosted tags
     tags = `${artist} ${title} bass boosted,${title} ${artist} bass boosted,${title} bass boosted,${title} bass,${artist} ${title} bass boost,${title} ${artist} bass boost,bass boosted,bass boost,${artist} ${title},${title} ${artist},${title},${artist}`;
+  } else if (format === "nightcore") {
+    // Nightcore/sped up tags
+  } else if (format === "slowedreverb") {
   }
 
-  // Part to generate tags for tiktok option
   if (tiktok === "true") {
+    // Part to generate tags for tiktok option
     tags += `,${title} tiktok,${artist} tiktok`;
   }
 
@@ -72,7 +76,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
   }
 
-  tags += ",lyrics";
+  if (format === "lyrics") {
+    tags += ",lyrics";
+  }
 
   // Extras - Generate different title formats
   let artistArray = artist.split(" ");
@@ -96,7 +102,17 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     ].substring(1)} `;
   }
 
-  let format: string = "";
+  let endingTag = "Lyrics";
+  let f: string = "";
+
+  // Modify the ending tag based off the selected format
+  if (format === "bassboosted") {
+    endingTag = "BoostedBoosted";
+  } else if (format === "nightcore") {
+    endingTag = "Nightcore";
+  } else if (format === "slowedreverb") {
+    endingTag = "Slowed";
+  }
 
   // Check if there are any features
   if (features !== undefined) {
@@ -104,7 +120,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       .split(",")
       .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`);
 
-    format += `${trim(computedArtist)} - ${trim(computedTitle)} ft. ${
+    f += `${trim(computedArtist)} - ${trim(computedTitle)} ft. ${
       feats[0]
     } (Lyrics),${trim(computedArtist)} & ${feats[0]} - ${trim(
       computedTitle
@@ -114,19 +130,19 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
     // If there are two features
     if (feats.length === 2) {
-      format += `${trim(computedArtist)} - ${trim(
-        computedTitle
-      )} (Lyrics) ft. ${feats[0]}, ${feats[1]}`;
+      f += `${trim(computedArtist)} - ${trim(computedTitle)} (Lyrics) ft. ${
+        feats[0]
+      }, ${feats[1]}`;
     }
 
     // If there are three features
     if (feats.length === 3) {
-      format += `${trim(computedArtist)} - ${trim(
-        computedTitle
-      )} (Lyrics) ft. ${feats[0]}, ${feats[1]}, ${feats[2]}`;
+      f += `${trim(computedArtist)} - ${trim(computedTitle)} (Lyrics) ft. ${
+        feats[0]
+      }, ${feats[1]}, ${feats[2]}`;
     }
   } else {
-    format += `${trim(computedArtist)} - ${trim(computedTitle)} (Lyrics)`;
+    f += `${trim(computedArtist)} - ${trim(computedTitle)} (Lyrics)`;
   }
 
   // Send the response
@@ -143,7 +159,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             .map((feat) => `${feat[0].toUpperCase()}${feat.substring(1)}`)
         : [],
     extras: {
-      titles: format,
+      titles: f,
     },
     url: `/api/gen?title=${encodeURIComponent(
       title

@@ -1,3 +1,4 @@
+import { returnComputedFormat } from "@/lib/return-computed-format";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "../components/Button";
@@ -16,13 +17,13 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
-  const [bassBoosted, setBassBoosted] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [features, setFeatures] = useState("");
   const [data, setData] = useState<Response>();
   const [artist, setArtist] = useState("");
   const [tiktok, setTiktok] = useState("");
+  const [format, setFormat] = useState("");
   const [title, setTitle] = useState("");
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,9 +45,7 @@ export default function Home() {
         features ? `&features=${features}` : ""
       }&tiktok=${
         tiktok === "" ? "false" : tiktok !== "true" ? "false" : "true"
-      }&bass=${
-        bassBoosted === "" ? "false" : bassBoosted !== "true" ? "false" : "true"
-      }
+      }&format=${format}
     `,
       {
         method: "GET",
@@ -86,7 +85,7 @@ export default function Home() {
     // Checks if the response is not "ok"
     if (!response.ok) {
       console.log(response);
-      toast.error("An error occurred. Please try again.");
+      toast.error(`${response.statusText}.`);
       setLoading(false);
     }
   };
@@ -204,17 +203,39 @@ export default function Home() {
               </p>
             </section>
           </div>
-          <h3 className="mt-12">These options are not for lyric videos.</h3>
-          <section className="flex flex-col w-full">
-            <Step step={5} text="Bass Boosted" />
-            <Input
-              onChange={(e) => setBassBoosted(e.target.value)}
-              placeholder="false"
-              required={false}
-              value={bassBoosted}
-            />
-            <p className="text-xs mt-1">Is this a bass boosted video? </p>
-          </section>
+          <div className="flex w-full gap-6 items-center">
+            <section className="flex flex-col w-full">
+              <Step step={5} text="Format" />
+              <div className="relative w-fit">
+                <select
+                  className="appearance-none border rounded-lg p-2 px-4 pr-10 outline-none focus:ring focus:ring-black duration-300"
+                  onChange={(e) => setFormat(e.target.value)}
+                  value={format}
+                >
+                  <option value="lyrics">Lyrics</option>
+                  <option value="bassboosted">Bass Boosted</option>
+                  <option value="nightcore">Nightcore/Sped Up</option>
+                  <option value="slowedreverb">Slowed/Reverb</option>
+                  <option value="none">None</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                  <svg
+                    className="w-4 h-4 text-gray-500"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                      d="M19 9l-7 7-7-7"
+                      strokeWidth={2}
+                    />
+                  </svg>
+                </div>
+              </div>
+            </section>
+          </div>
           <div className="w-full justify-between items-center flex mt-2 border-b pb-4">
             <div className="ml-auto flex">
               <Button title="Generate tags">
@@ -314,7 +335,7 @@ export default function Home() {
                     <p className="text-xl mr-4">
                       #{data?.title.replace("'", "").replaceAll(" ", "")}
                     </p>
-                    <p className="text-xl">#Lyrics</p>
+                    <p className="text-xl">#{returnComputedFormat(format)}</p>
                   </div>
                   <Button
                     onClick={() => {
@@ -323,7 +344,7 @@ export default function Home() {
                         ""
                       )} #${data?.title
                         .replace("'", "")
-                        .replaceAll(" ", "")} #Lyrics`;
+                        .replaceAll(" ", "")} #${returnComputedFormat(format)}`;
                       copy(textToCopy);
                       toast.success("Hashtags copied to the clipboard.");
                     }}
