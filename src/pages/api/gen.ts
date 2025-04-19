@@ -35,10 +35,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   if (format === "bassboosted") {
     // Bass boosted tags
-    tags = `${artist} ${title} bass boosted,${title} ${artist} bass boosted,${title} bass boosted,${title} bass,${artist} ${title} bass boost,${title} ${artist} bass boost,bass boosted,bass boost,${artist} ${title},${title} ${artist},${title},${artist}`;
+    tags = `${artist},${title},${title} bass boosted,${title} bass boosted ${artist},${title} ${artist},${title} ${artist} bass boosted,${artist} ${title} bass boosted,${artist} ${title},${artist} - ${title},${artist} - ${title} bass boosted,${title} ${artist} bass boost,${artist} bass boosted,${title} bass boost,bass boost,bass boosted,bass boosted car playlist, bass boost car playlist`;
   } else if (format === "nightcore") {
     // Nightcore/sped up tags
   } else if (format === "slowedreverb") {
+    // Slowed/reverb tags
+    tags = `${artist},${title},${artist} ${title},${artist} ${title} slowed,${artist} ${title} slowed reverb,${artist} ${title} slowed to perfection,${title} ${artist},${title} slowed,${artist} - ${title},${artist} - ${title} slowed,${artist} - ${title} slowed reverb,${title} slowed reverb,${title} slowed to perfection,${artist} ${title} slowed and reverb,slowed and reverb songs,slowed tiktok songs`;
+  } else if (format === "none") {
   }
 
   if (tiktok === "true") {
